@@ -8,7 +8,7 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 
 const client = new ApolloClient({
-  networkInterface: createNetworkInterface({ uri: 'https://www.graphqlhub.com/graphql'}),
+  networkInterface: createNetworkInterface({ uri: 'http://localhost:4000/graphql'}),
 });
 
 import Store from './store/Store';

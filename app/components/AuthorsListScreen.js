@@ -11,25 +11,23 @@ import {
 import TitleBar from './childcomponents/TitleBar';
 import PropTypes from 'prop-types'; 
 import LoadingScreen from './childcomponents/LoadingScreen';
-import MovieRow from './childcomponents/MovieRow';
-import {Actions} from 'react-native-router-flux';
+import AuthorRow from './childcomponents/AuthorRow';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { setSelectedMovie } from '../actions/MoviesListActions';
-
+import { setSelectedAuthor } from '../actions/AuthorsListActions';
 
 import { graphql } from 'react-apollo';
-import { RedditQuery } from '../util/Queries';
+import { AllAuthorsQuery } from '../util/Queries';
 
-class MoviesListScreen extends PureComponent {
+class AuthorsListScreen extends PureComponent {
 
   //Validstes the props with the types 
   static propTypes = {
     loading: PropTypes.bool,
     data: PropTypes.object,
 
-    setSelectedMovie: PropTypes.func,
+    setSelectedAuthor: PropTypes.func,
   };
 
   constructor(props) {
@@ -41,18 +39,17 @@ class MoviesListScreen extends PureComponent {
    */
   _renderItem = (rowData) => {
     return(
-      <MovieRow 
-        movie={rowData}
-        onListSeleted={(selectedMovie) => {
-          this.props.setSelectedMovie(selectedMovie);
-          Actions.movieDetailScreen();
+      <AuthorRow 
+        rowData={rowData}
+        onListSeleted={(selectedAuthor) => {
+          this.props.setSelectedAuthor(selectedAuthor.item);
         }}
       />
     );
   }
 
   /**
-   * Renders the list of movies
+   * Renders the list of Authors
    */
   _renderList() {
     const { loading } = this.props.data;
@@ -60,21 +57,21 @@ class MoviesListScreen extends PureComponent {
       return(
         <LoadingScreen
           isLoading={loading}
-          message={'No Movies'}
+          message={'No Authors'}
         />
       );
     } else {
 
-      const { reddit : { subreddit: { newListings  }}} = this.props.data;
+      const { authors } = this.props.data;
       return(
         <View style={{flex: 1}}>
           <View style={{height: 30,backgroundColor: '#7B7B7B', alignContent:'center', justifyContent:'center', marginBottom: 10}}>
-            <Text style={{marginLeft: 10, fontSize:18, fontWeight: 'bold', color:'white'}}>{'All Movies'}</Text>
+            <Text style={{marginLeft: 10, fontSize:18, fontWeight: 'bold', color:'white'}}>{'All Authors'}</Text>
           </View>
           <FlatList
-            data={newListings}
+            data={authors}
             renderItem={this._renderItem}
-            keyExtractor={(item) => item.title}
+            keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
           />
         </View>
@@ -87,7 +84,7 @@ class MoviesListScreen extends PureComponent {
     return (
       <View style={{flex: 1, backgroundColor: 'black'}}>
         <StatusBar barStyle = "light-content" hidden = {false} backgroundColor = "white"/>
-        <TitleBar title={'Movies'} />
+        <TitleBar title={'Authors'} isBackButtonNeeded={true} />
         {this._renderList()}
       </View>
 
@@ -110,10 +107,10 @@ const mapStateToProps = (state, props) => {
    */
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ 
-    setSelectedMovie,
+    setSelectedAuthor,
   }, dispatch);
 };
   
-const MoviesListScreenWithGraphQL = graphql(RedditQuery)(MoviesListScreen);
+const AuthorsListScreenWithGraphQL = graphql(AllAuthorsQuery)(AuthorsListScreen);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MoviesListScreenWithGraphQL);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorsListScreenWithGraphQL);

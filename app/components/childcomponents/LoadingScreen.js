@@ -49,7 +49,6 @@ class LoadingScreen extends Component{
               size={40}
               type={'Wave'}
               color={'white'}
-
             />
             <Text style={{textAlign: 'center', marginTop: deviceHeight/40, fontSize: deviceHeight/35, color: 'white'}}>Loading...</Text>
           </View>

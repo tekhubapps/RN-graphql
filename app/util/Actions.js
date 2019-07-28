@@ -1,6 +1,7 @@
 'use strict';
 
 export const ACTIONS = {
-  // Actions of MoviesListScreen
-  SET_SELECTED_MOVIE: 'SET_SELECTED_MOVIE',
+  // Actions of BooksListScreen
+  SET_SELECTED_BOOK: 'SET_SELECTED_BOOK',
+  SET_SELECTED_AUTHOR: 'SET_SELECTED_AUTHOR',
 };
