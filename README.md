@@ -6,12 +6,12 @@
 ## Clone the Repo from  github
 
 ```
-git clone https://github.com/eddysagay/movies-app-graphql.git
+git clone https://github.com/tekhubapps/RN-graphql.git
 ```
 
 
 ```
-cd movies-app-graphql/
+cd RN-graphql.git/
 ```
 
 ### install node_modules
