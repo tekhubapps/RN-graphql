@@ -11,7 +11,7 @@ git clone https://github.com/tekhubapps/RN-graphql.git
 
 
 ```
-cd RN-graphql.git/
+cd RN-graphql/
 ```
 
 ### install node_modules
